@@ -1,21 +1,11 @@
 /*
   Analog input, analog output, serial output
  
- Reads an analog input pin, maps the result to a range from 0 to 255
- and uses the result to set the pulsewidth modulation (PWM) of an output pin.
- Also prints the results to the serial monitor.
+ This code corresponds to a boat with two light sensors on either side, allowing it to
+ follow the light (it steers towards the light)
  
- The circuit:
- * potentiometer connected to analog pin 0.
-   Center pin of the potentiometer goes to the analog pin.
-   side pins of the potentiometer go to +5V and ground
- * LED connected from digital pin 9 to ground
+ for how to build the boat, see levinegabriella.com/teaching
  
- created 29 Dec. 2008
- modified 30 Aug 2011
- by Tom Igoe
- 
- This example code is in the public domain.
  
  */
 
@@ -51,7 +41,7 @@ void loop() {
   Serial.println(outputValue);   
 
 
- sensorValue1 = analogRead(analogInPin1);            
+  sensorValue1 = analogRead(analogInPin1);            
   // map it to the range of the analog out:
   outputValue1 = map(sensorValue1, 0, 1023/2, 0, 255);  
   // change the analog out value:
@@ -70,3 +60,4 @@ void loop() {
 }
 
 //practice how to set a max and min so it doesn't blink 
+
