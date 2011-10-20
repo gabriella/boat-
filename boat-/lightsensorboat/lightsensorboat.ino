@@ -6,6 +6,7 @@
  
  for how to build the boat, see levinegabriella.com/teaching
  
+ //you will have to calibrate the values corresponding to your sensor values
  
  */
 
@@ -13,7 +14,7 @@
 // to the pins used:
 const int analogInPin1 = A0;  // Analog input pin that the potentiometer is attached to
 const int analogInPin = A1;  // Analog input pin that the potentiometer is attached to
-const int analogOutPin1 = 5; // Analog output pin that the LED is attached to
+const int analogOutPin1 = 11; // Analog output pin that the LED is attached to
 const int analogOutPin = 3; // Analog output pin that the LED is attached to
 
 int sensorValue = 0;        // value read from the pot
@@ -30,7 +31,7 @@ void loop() {
   // read the analog in value:
   sensorValue = analogRead(analogInPin);            
   // map it to the range of the analog out:
-  outputValue = map(sensorValue, 0, 1023/2, 0, 255);  
+  outputValue = map(sensorValue, 0, 1023/7, 0, 255);  
   // change the analog out value:
   analogWrite(analogOutPin, outputValue);           
 
@@ -43,7 +44,7 @@ void loop() {
 
   sensorValue1 = analogRead(analogInPin1);            
   // map it to the range of the analog out:
-  outputValue1 = map(sensorValue1, 0, 1023/2, 0, 255);  
+  outputValue1 = map(sensorValue1, 0, 1023, 0, 255);  
   // change the analog out value:
   analogWrite(analogOutPin1, outputValue1);           
 
