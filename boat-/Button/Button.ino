@@ -1,27 +1,14 @@
 /*
   Button
  
- Turns on and off a light emitting diode(LED) connected to digital  
- pin 13, when pressing a pushbutton attached to pin 2. 
- 
- 
- The circuit:
- * LED attached from pin 13 to ground 
- * pushbutton attached to pin 2 from +5V
- * 10K resistor attached to pin 2 from ground
- 
- * Note: on most Arduinos there is already an LED on the board
- attached to pin 13.
- 
- 
- created 2005
- by DojoDave <http://www.0j0.org>
- modified 30 Aug 2011
- by Tom Igoe
- 
- This example code is in the public domain.
+ this code is for a small boat with two reed switches that deactivate two rear 
+ motors if the boat hits the wall: for button circuit, see
  
  http://www.arduino.cc/en/Tutorial/Button
+ 
+ for step by step instruction for building the boat, see levinegabriella.com/teaching
+ 
+ code by gabriella levine 2011
  */
 
 // constants won't change. They're used here to 
@@ -29,31 +16,31 @@
 const int pingPin = 7;
 const int buttonPin1 = 2;     // the number of the pushbutton pin
 const int buttonPin2 = 4;
-const int motor =  3;      // the number of the LED pin
+const int motor =  3;      // the number of the motor pin
 const int motor2=11;
 
 // variables will change:
 int buttonState = 0;         // variable for reading the pushbutton status
 int buttonState1  =0;
 void setup() {
-    Serial.begin(9600);
+  Serial.begin(9600);
   // initialize the LED pin as an output:
   pinMode(motor, OUTPUT); 
-pinMode(motor2, OUTPUT);  
+  pinMode(motor2, OUTPUT);  
   // initialize the pushbutton pin as an input:
   pinMode(buttonPin1, INPUT);    
- pinMode(buttonPin2, INPUT); 
+  pinMode(buttonPin2, INPUT); 
 }
 
 void loop(){
-    long duration, inches, cm;
-     pinMode(pingPin, OUTPUT);
+  long duration, inches, cm;
+  pinMode(pingPin, OUTPUT);
   digitalWrite(pingPin, LOW);
   delayMicroseconds(2);
   digitalWrite(pingPin, HIGH);
   delayMicroseconds(5);
   digitalWrite(pingPin, LOW);
-   pinMode(pingPin, INPUT);
+  pinMode(pingPin, INPUT);
   duration = pulseIn(pingPin, HIGH);
 
   // convert the time into a distance
@@ -62,16 +49,16 @@ void loop(){
   // read the state of the pushbutton value:
   buttonState1 = digitalRead(buttonPin1);
   buttonState = digitalRead(buttonPin2);
- if (cm<=15){
-   //digitalWrite(motor, LOW); 
-   digitalWrite(motor2, LOW);
+  if (cm<=15){
+    //digitalWrite(motor, LOW); 
+    digitalWrite(motor2, LOW);
   }
   else{
-//digitalWrite(motor, HIGH);
-digitalWrite(motor2, HIGH);
-button();
-}
-delay(100);
+    //digitalWrite(motor, HIGH);
+    digitalWrite(motor2, HIGH);
+    button();
+  }
+  delay(100);
 
 
 }
@@ -86,7 +73,7 @@ void button(){
     // turn LED off:
     digitalWrite(motor, HIGH); 
   }
- if (buttonState == HIGH) {     
+  if (buttonState == HIGH) {     
     // turn LED on:    
     digitalWrite(motor2, LOW);  
   } 
@@ -112,3 +99,4 @@ long microsecondsToCentimeters(long microseconds)
   // object we take half of the distance travelled.
   return microseconds / 29 / 2;
 }
+
