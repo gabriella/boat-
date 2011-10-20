@@ -1,59 +1,54 @@
 /*
-  Button
+This code corresponds to a floating boat with rudimentary sensing capabilities - 
+ step by step instructions and images are at levinegabriella.com/teaching
+ It includes an parallax ultrasonic rangefinder :  see data sheet
+ http://www.arduino.cc/en/Tutorial/Ping
+ which allows the boat to turn away from obstacles ahead.
+ It also includes two reed switches so if it hits barriers from the side, it 
+ turns around away from the wall
  
- Turns on and off a light emitting diode(LED) connected to digital  
- pin 13, when pressing a pushbutton attached to pin 2. 
- 
- 
- The circuit:
- * LED attached from pin 13 to ground 
- * pushbutton attached to pin 2 from +5V
- * 10K resistor attached to pin 2 from ground
- 
- * Note: on most Arduinos there is already an LED on the board
- attached to pin 13.
- 
- 
- created 2005
- by DojoDave <http://www.0j0.org>
- modified 30 Aug 2011
- by Tom Igoe
- 
- This example code is in the public domain.
- 
- http://www.arduino.cc/en/Tutorial/Button
+ created 2011 by gabriella levine
  */
 
-// constants won't change. They're used here to 
+// constants
 // set pin numbers:
 const int pingPin = 7;
 const int buttonPin1 = 2;     // the number of the pushbutton pin
 const int buttonPin2 = 4;
-const int motor =  3;      // the number of the LED pin
+const int motor =  3;      // the number of the motor pin
 const int motor2=11;
 
-// variables will change:
+// variables 
 int buttonState = 0;         // variable for reading the pushbutton status
 int buttonState1  =0;
 void setup() {
-    Serial.begin(9600);
-  // initialize the LED pin as an output:
+  //begin serial
+  Serial.begin(9600);
+  // initialize the motors  as output:
   pinMode(motor, OUTPUT); 
-pinMode(motor2, OUTPUT);  
-  // initialize the pushbutton pin as an input:
+  pinMode(motor2, OUTPUT);  
+  // initialize the pushbutton pins as  input:
   pinMode(buttonPin1, INPUT);    
- pinMode(buttonPin2, INPUT); 
+  pinMode(buttonPin2, INPUT); 
 }
 
 void loop(){
-    long duration, inches, cm;
-     pinMode(pingPin, OUTPUT);
+  // establish variables for duration of the ping, 
+  // and the distance result in inches and centimeters:
+  long duration, inches, cm;
+  // The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
+  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
+  pinMode(pingPin, OUTPUT);
   digitalWrite(pingPin, LOW);
   delayMicroseconds(2);
   digitalWrite(pingPin, HIGH);
   delayMicroseconds(5);
   digitalWrite(pingPin, LOW);
-   pinMode(pingPin, INPUT);
+  
+   // The same pin is used to read the signal from the PING))): a HIGH
+  // pulse whose duration is the time (in microseconds) from the sending
+  // of the ping to the reception of its echo off of an object.
+  pinMode(pingPin, INPUT);
   duration = pulseIn(pingPin, HIGH);
 
   // convert the time into a distance
@@ -62,16 +57,16 @@ void loop(){
   // read the state of the pushbutton value:
   buttonState1 = digitalRead(buttonPin1);
   buttonState = digitalRead(buttonPin2);
- if (cm<=15){
-   //digitalWrite(motor, LOW); 
-   digitalWrite(motor2, LOW);
+  if (cm<=15){
+    //digitalWrite(motor, LOW); 
+    digitalWrite(motor2, LOW);
   }
   else{
-//digitalWrite(motor, HIGH);
-digitalWrite(motor2, HIGH);
-button();
-}
-delay(100);
+    //digitalWrite(motor, HIGH);
+    digitalWrite(motor2, HIGH);
+    button();
+  }
+  delay(100);
 
 
 }
@@ -86,7 +81,7 @@ void button(){
     // turn LED off:
     digitalWrite(motor, HIGH); 
   }
- if (buttonState == HIGH) {     
+  if (buttonState == HIGH) {     
     // turn LED on:    
     digitalWrite(motor2, LOW);  
   } 
@@ -112,4 +107,4 @@ long microsecondsToCentimeters(long microseconds)
   // object we take half of the distance travelled.
   return microseconds / 29 / 2;
 }
-//put on git
+
